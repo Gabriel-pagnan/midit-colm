@@ -4,7 +4,7 @@ import logging
 from fastapi import FastAPI
 from alembic import command
 from alembic.config import Config
-# from api.routes.routes import routes
+from api.routes.index import routes
 from contextlib import asynccontextmanager
 from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
@@ -37,7 +37,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app = FastAPI(lifespan= lifespan)
-# app.include_router(routes)
+app.include_router(routes)
 
 openapi_schema = get_openapi(
     title="API MIDIT",
