@@ -4,6 +4,8 @@ import logging
 from fastapi import FastAPI
 from alembic import command
 from alembic.config import Config
+from api.models.database import SessionLocal
+from api.models.departments_model import Departments
 from api.routes.index import routes
 from contextlib import asynccontextmanager
 from fastapi.openapi.utils import get_openapi
@@ -17,11 +19,25 @@ def run_migrations():
     alembic_config = Config('alembic.ini')
     command.upgrade(alembic_config, 'head')
 
+def create_initial_data():
+    model = SessionLocal()
+    result = model.query(Departments).filter_by(name= 'Marketing').first()
+    if not result: 
+        department = Departments(
+            name="Marketing", 
+            description="Setor responsável pelo marketing."
+        )
+
+        model.add(department)
+        model.commit()
+        model.close()
+
 @asynccontextmanager
 async def lifespan(app_: FastAPI):
     if upgrade_db == 'True':
         log.info('Run alembic upgrade head...')
         run_migrations()
+        create_initial_data()
     yield
 
 origins =[
@@ -39,7 +55,7 @@ app.add_middleware(
 app = FastAPI(lifespan= lifespan)
 app.include_router(routes)
 
-openapi_schema = get_openapi(
+openapi_schema = get_openapi( 
     title="API MIDIT",
     version="1.1.1",
     summary="Administrative api of the hive MIDIT Colmeia System",
