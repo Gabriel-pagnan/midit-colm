@@ -4,8 +4,10 @@ from fastapi import APIRouter, Depends
 from api.helper.find_database import find_by_id
 from api.models.departments_model import Departments
 from api.models.dependences import get_db
+from api.models.question_options_model import QuestionOptions
 from api.models.questions_model import Questions
 from api.helper.exception import HttpException, InternalError
+from api.routes.types.options import OptionType
 from api.routes.types.question import QuestionType, QuestionUpdateType
 
 router = APIRouter(tags=['question'])
@@ -96,5 +98,38 @@ async def delete_question(id: int, db: Session = Depends(get_db)):
             db.delete(question)
             db.commit()
             return {"message": "Question deleted successfully"}
+    except InternalError as error:
+        raise HttpException(500, str(error))
+
+@router.post('/options/{question_id}', status_code=201)
+async def insert_options(
+    question_id: int, 
+    data: OptionType, 
+    db: Session = Depends(get_db)
+):
+    try:
+        question = await find_by_id(
+            id= question_id, 
+            model= model, 
+            datadase= db,
+            exception= 'Question not found.'
+        )
+        
+        if question:
+            department = db.query(Departments).filter(question.department_id == Departments.id).first()
+
+            if department and data:
+                options = QuestionOptions(
+                    **data.__dict__,
+                    department = department.name,
+                    question_id = question_id
+                )
+
+                if options:
+                    db.add(options)
+                    db.commit()
+                    db.refresh(options)
+
+                    return options
     except InternalError as error:
         raise HttpException(500, str(error))

@@ -2,6 +2,7 @@ from datetime import datetime
 from api.models.database import Base
 from sqlalchemy.orm import relationship
 from api.models.departments_model import Departments
+from api.models.question_options_model import QuestionOptions
 from sqlalchemy import Column, DateTime, Integer, String, ForeignKey
 
 class Questions(Base):
@@ -17,3 +18,4 @@ class Questions(Base):
 
     # relationship
     departments = relationship(Departments, back_populates='questions')
+    questionOptions = relationship(QuestionOptions, back_populates='questions')
