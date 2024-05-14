@@ -8,12 +8,12 @@ from api.helper.exception import HttpException, InternalError
 
 router = APIRouter(tags=['department'])
 
-model = Departments
+db = Departments
 
 @router.get('', response_model=List[DepartmentResponse], status_code=200)
 async def list_departments(model: Session = Depends(get_db)) -> DepartmentResponse:
     try:
-        departments = model.query(Departments).all()
+        departments = model.query(db).all()
         if len(departments) == 0 or departments == None:
             raise HttpException(500, 'Departments not found.')
         return departments
@@ -23,7 +23,7 @@ async def list_departments(model: Session = Depends(get_db)) -> DepartmentRespon
 @router.get('/{id}', response_model=DepartmentResponse, status_code=200)
 async def find_department(id: int, model: Session = Depends(get_db)) -> DepartmentResponse:
     try:
-        department = model.query(Departments).filter_by(id= id).first()
+        department = model.query(db).filter_by(id= id).first()
         print(department)
         if department:
             return department
