@@ -41,8 +41,7 @@ async def lifespan(app_: FastAPI):
     yield
 
 origins =[
-    '*',
-    'http://127.0.0.1:8000'
+    "*",
 ]
 
 app.add_middleware(
@@ -65,4 +64,4 @@ openapi_schema = get_openapi(
 app.openapi_schema = openapi_schema
 
 if __name__ == '__main__':
-    uvicorn.run('main:app', hostname='127.0.0.1', port=8000)
+    uvicorn.run('main:app', host='0.0.0.0', port=8000, reload=True)

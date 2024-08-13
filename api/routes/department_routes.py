@@ -24,7 +24,6 @@ async def list_departments(model: Session = Depends(get_db)) -> DepartmentRespon
 async def find_department(id: int, model: Session = Depends(get_db)) -> DepartmentResponse:
     try:
         department = model.query(db).filter_by(id= id).first()
-        print(department)
         if department:
             return department
         raise HttpException(404, 'Department not found.')
