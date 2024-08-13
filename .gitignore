@@ -1,7 +1,0 @@
-.env
-.venv
-__pycache__
-
-#alembic config and migrations
-alembic
-alembic.ini

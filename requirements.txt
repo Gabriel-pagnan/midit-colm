@@ -1,9 +1,0 @@
-fastapi
-SQLAlchemy
-uvicorn
-python-dotenv
-psycopg2
-pyjwt
-bcrypt
-alembic
-passlib
