@@ -7,7 +7,7 @@ import { env as _env } from 'process';
 const basename = _basename(__filename);
 const env = _env.NODE_ENV || 'development';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const config = require(__dirname + '/../config.json')[env];
+const config = require(__dirname + '/config/../config.json')[env];
 const db = {};
 
 let sequelize;

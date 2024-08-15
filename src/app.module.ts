@@ -3,8 +3,17 @@ import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { DepartmentModule } from './department/department.module';
+import { Department } from './department/entities/department.entity';
+import { Question } from './question/entities/question.entity';
+import { QuestionOption } from './question/entities/question-option.entity';
 
-const models = [User]
+const models = [
+  User, 
+  Department, 
+  Question, 
+  QuestionOption
+];
 
 @Module({
   imports: [
@@ -23,7 +32,8 @@ const models = [User]
       autoLoadModels: Boolean(process.env.DATABASE_UPGRADE) || false,
       synchronize: Boolean(process.env.DATABASE_UPGRADE) || false,
     }),
-    UserModule
+    UserModule,
+    DepartmentModule
   ],
   controllers: [],
   providers: [],

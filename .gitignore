@@ -42,6 +42,9 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+
+# config sequelize
+/config
 config.json
 
 # temp directory
