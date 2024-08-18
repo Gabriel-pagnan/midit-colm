@@ -9,11 +9,11 @@ export class Department extends Model {
     @Column({field: 'description'})
     description: string;
 
-    @Column({field: 'created_at'})
-    created_at: Date
+    @Column({field: 'createdAt'})
+    createdAt: Date
 
-    @Column({field: 'updated_at'})
-    updated_at: Date
+    @Column({field: 'updatedAt'})
+    updatedAt: Date
 
     @HasMany(() => Question)
     questions: Question[];

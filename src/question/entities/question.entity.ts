@@ -16,11 +16,11 @@ export class Question extends Model {
     @Column({ field: 'department_id' })
     department_id: number;
 
-    @Column({field: 'created_at'})
-    created_at: Date;
+    @Column({field: 'createdAt'})
+    createdAt: Date;
 
-    @Column({field: 'updated_at'})
-    updated_at: Date;
+    @Column({field: 'updatedAt'})
+    updatedAt: Date;
 
     @BelongsTo(() => Department)
     department: Department;

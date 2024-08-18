@@ -7,6 +7,7 @@ import { DepartmentModule } from './department/department.module';
 import { Department } from './department/entities/department.entity';
 import { Question } from './question/entities/question.entity';
 import { QuestionOption } from './question/entities/question-option.entity';
+import { QuestionModule } from './question/question.module';
 
 const models = [
   User, 
@@ -33,7 +34,8 @@ const models = [
       synchronize: Boolean(process.env.DATABASE_UPGRADE) || false,
     }),
     UserModule,
-    DepartmentModule
+    DepartmentModule,
+    QuestionModule
   ],
   controllers: [],
   providers: [],
