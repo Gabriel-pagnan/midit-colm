@@ -8,6 +8,7 @@ import { Department } from './department/entities/department.entity';
 import { Question } from './question/entities/question.entity';
 import { QuestionOption } from './question/entities/question-option.entity';
 import { QuestionModule } from './question/question.module';
+import { AuthModule } from './auth/auth.module';
 
 const models = [
   User, 
@@ -35,7 +36,8 @@ const models = [
     }),
     UserModule,
     DepartmentModule,
-    QuestionModule
+    QuestionModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],

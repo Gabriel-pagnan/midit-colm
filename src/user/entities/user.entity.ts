@@ -19,9 +19,9 @@ export class User extends Model {
     @Column({field: 'role', defaultValue: UserType.User})
     role: string
 
-    @Column({field: 'created_at'})
-    created_at: Date
+    @Column({field: 'createdAt'})
+    createdAt: Date
 
-    @Column({field: 'updated_at'})
-    updated_at: Date
+    @Column({field: 'updatedAt'})
+    updatedAt: Date
 }
