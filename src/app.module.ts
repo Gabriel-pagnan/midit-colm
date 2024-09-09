@@ -9,6 +9,9 @@ import { Question } from './question/entities/question.entity';
 import { QuestionOption } from './question/entities/question-option.entity';
 import { QuestionModule } from './question/question.module';
 import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './guards/role.guard';
+import { JwtModule } from '@nestjs/jwt';
 
 const models = [
   User, 
@@ -37,9 +40,13 @@ const models = [
     UserModule,
     DepartmentModule,
     QuestionModule,
-    AuthModule
+    AuthModule,
+    JwtModule
   ],
   controllers: [],
-  providers: [],
+  providers: [{
+    provide: APP_GUARD,
+    useClass: RolesGuard
+  }],
 })
 export class AppModule {}

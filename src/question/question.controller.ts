@@ -5,7 +5,8 @@ import { Question } from './entities/question.entity';
 import { ReturnQuestionDTO } from './dtos/return-question.dto';
 import { UpdateQuestioDTO } from './dtos/update-question.dto';
 import { QuestionOption } from './entities/question-option.entity';
-
+import { Roles } from '../decorators/role.decorator';
+import { UserType } from '../user/enums/user.type';
 @Controller('questions')
 export class QuestionController {
     constructor(
@@ -29,6 +30,7 @@ export class QuestionController {
 
     @Get()
     @HttpCode(200)
+    @Roles(UserType.Admin, UserType.User)
     async findAllQuestions(): Promise<ReturnQuestionDTO[]> {
         const questions = await this.questionService.findAllQuestion();
         if (questions && questions.length) {

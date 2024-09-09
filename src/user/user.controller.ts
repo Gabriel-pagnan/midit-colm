@@ -4,6 +4,8 @@ import { CreateUserDTO } from './dtos/create-user.dto';
 import { User } from './entities/user.entity';
 import { ReturnUserDTO } from './dtos/return-user.dto';
 import { UpdateUserDTO } from './dtos/update-user.dto';
+import { Roles } from '../decorators/role.decorator';
+import { UserType } from './enums/user.type';
 
 @Controller('users')
 export class UserController {
@@ -24,6 +26,7 @@ export class UserController {
         }
     }
 
+    @Roles(UserType.Admin)
     @Put(':id')
     async updateUser(
         @Body() data: UpdateUserDTO, 
