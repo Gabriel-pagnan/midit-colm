@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UserModule } from './user/user.module';
@@ -12,6 +12,8 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/role.guard';
 import { JwtModule } from '@nestjs/jwt';
+import { ErrorMiddleware } from './middlewares/error/error.middleware';
+import { LogController } from './log/log.controller';
 
 const models = [
   User, 
@@ -43,10 +45,16 @@ const models = [
     AuthModule,
     JwtModule
   ],
-  controllers: [],
+  controllers: [LogController],
   providers: [{
     provide: APP_GUARD,
     useClass: RolesGuard
   }],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+      consumer
+        .apply(ErrorMiddleware)
+        .forRoutes('*')
+  }
+}
